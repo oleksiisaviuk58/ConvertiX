@@ -1,7 +1,13 @@
-@import "_nullstyle.scss"
+@import "_nullstyle";
 
 body {
-
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-family: system-ui, -apple-system, sans-serif;
+   background: linear-gradient(135deg, #43cea2, #185a9d);
+   padding: 40px 20px;
 }
 
 h1,
