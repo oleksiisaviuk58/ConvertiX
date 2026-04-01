@@ -11,4 +11,11 @@
       <Folder Include="wwwroot\scss\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="Views\Converter\Index.cshtml">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
