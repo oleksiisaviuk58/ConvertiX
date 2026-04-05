@@ -1,20 +1,40 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace ConvertiX.Controllers;
 
 public class ConverterController : Controller
 {
     [HttpGet("/")]
-    public ViewResult Index() => View();
+    public async Task<ViewResult> Index()
+    {
+        try { await CurrencyAPIService.GetRatesAsync(); }
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
+        
+        ViewBag.Currencies = new SelectList(Currencies._currencies, "Id", "Name");
+        ViewBag.CryptoCurrencies = new SelectList(Currencies._currencies, "Id", "Name");
+        
+        return View();
+    }
 
     [HttpPost("/")]
-    public ViewResult Index(string amount, string from, string to)
+    public async Task<ViewResult> Index(string amount, int from, int to)
     {
-        if (!string.IsNullOrEmpty(amount))
+        try { await CurrencyAPIService.GetRatesAsync(); }
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+        var fromCurrency = Currencies._currencies[from];
+        var toCurrency = Currencies._currencies[to];
+        
+        try
         {
-            if (decimal.TryParse(amount, out decimal result))
-                ViewBag.Result = result * 2;
+            if (!string.IsNullOrEmpty(amount))
+            {
+                if (decimal.TryParse(amount, out decimal amountResult))
+                    ViewBag.Result = amountResult * fromCurrency.Rate / toCurrency.Rate;
+            }
         }
+        catch (DivideByZeroException ex) { Console.WriteLine(ex.Message); }
+        
+        ViewBag.Currencies = new SelectList(Currencies._currencies, "Id", "Name");
+        ViewBag.CryptoCurrencies = new SelectList(Currencies._currencies, "Id", "Name");
         
         return View();
     }

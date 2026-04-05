@@ -1,16 +1,23 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ConvertiX.Currency
 
 <title>ConvertiX</title>
 <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
 
 <div class="block">
-    <form asp-action="" method="post">
+    <form asp-action="Index" method="post">
         <h1>Конвертер валют</h1>
         <p>Введіть суму та виберіть напрямок конвертації</p>
         
         <input name="amount" class="amount_input" type="text" placeholder="Сума">
-        <input name="from" class="from_input" type="text" placeholder="З якої валюти">
-        <input name="to" class="to_input" type="text" placeholder="В яку валюту">
+        
+        <select name="from" asp-for="Id" asp-items="ViewBag.Currencies">
+            <option selected="selected" disabled="disabled">З якої валюти</option>
+        </select>
+        
+        <select name="to" asp-for="Id" asp-items="ViewBag.Currencies">
+            <option selected="selected" disabled="disabled">В яку валюту</option>
+        </select>
 
         <div class="result">
             <p>Результат:</p>
