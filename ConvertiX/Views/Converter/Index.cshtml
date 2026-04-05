@@ -11,11 +11,11 @@
         
         <input name="amount" class="amount_input" type="text" placeholder="Сума">
         
-        <select name="from" asp-for="Id" asp-items="ViewBag.Currencies">
+        <select name="fromId" asp-items="ViewBag.Currencies">
             <option selected="selected" disabled="disabled">З якої валюти</option>
         </select>
         
-        <select name="to" asp-for="Id" asp-items="ViewBag.Currencies">
+        <select name="toId" asp-items="ViewBag.Currencies">
             <option selected="selected" disabled="disabled">В яку валюту</option>
         </select>
 

@@ -9,33 +9,23 @@ public class ConverterController : Controller
         catch (Exception ex) { Console.WriteLine(ex.Message); }
         
         ViewBag.Currencies = new SelectList(Currencies._currencies, "Id", "Name");
-        ViewBag.CryptoCurrencies = new SelectList(Currencies._currencies, "Id", "Name");
-        
         return View();
     }
 
     [HttpPost("/")]
-    public async Task<ViewResult> Index(string amount, int from, int to)
+    public async Task<ViewResult> Index(decimal amount, int fromId, int toId)
     {
-        try { await CurrencyAPIService.GetRatesAsync(); }
-        catch (Exception ex) { Console.WriteLine(ex.Message); }
-
-        var fromCurrency = Currencies._currencies[from];
-        var toCurrency = Currencies._currencies[to];
-        
         try
         {
-            if (!string.IsNullOrEmpty(amount))
-            {
-                if (decimal.TryParse(amount, out decimal amountResult))
-                    ViewBag.Result = amountResult * fromCurrency.Rate / toCurrency.Rate;
-            }
+            var from = Currencies._currencies.FirstOrDefault(x => x.Id == fromId);
+            var to = Currencies._currencies.FirstOrDefault(x => x.Id == toId);
+            
+            if (from is not null && to is not null)
+                ViewBag.Result = amount * from.Rate / to.Rate;
         }
         catch (DivideByZeroException ex) { Console.WriteLine(ex.Message); }
         
         ViewBag.Currencies = new SelectList(Currencies._currencies, "Id", "Name");
-        ViewBag.CryptoCurrencies = new SelectList(Currencies._currencies, "Id", "Name");
-        
         return View();
     }
 }
