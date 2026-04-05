@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace ConvertiX.Controllers;
 
 public class ConverterController : Controller
@@ -19,9 +21,12 @@ public class ConverterController : Controller
         {
             var from = Currencies._currencies.FirstOrDefault(x => x.Id == fromId);
             var to = Currencies._currencies.FirstOrDefault(x => x.Id == toId);
-            
+
             if (from is not null && to is not null)
-                ViewBag.Result = amount * from.Rate / to.Rate;
+            {
+                var result = amount * from.Rate / to.Rate;
+                ViewBag.Result = $"{result.ToString("F2", new CultureInfo("uk-UA"))} {to.Code}";
+            }
         }
         catch (DivideByZeroException ex) { Console.WriteLine(ex.Message); }
         
