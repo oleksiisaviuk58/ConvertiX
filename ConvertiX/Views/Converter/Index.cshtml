@@ -1,4 +1,3 @@
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model ConvertiX.Currency
 
 <title>ConvertiX</title>
@@ -11,13 +10,9 @@
         
         <input name="amount" class="amount_input" type="text" placeholder="Сума">
         
-        <select name="fromId" asp-items="ViewBag.Currencies">
-            <option selected="selected" disabled="disabled">З якої валюти</option>
-        </select>
+        @await Component.InvokeAsync("Currencies", new { name="fromId" })
         
-        <select name="toId" asp-items="ViewBag.Currencies">
-            <option selected="selected" disabled="disabled">В яку валюту</option>
-        </select>
+        <vc:currencies name="toId"/>
 
         <div class="result">
             <p>Результат:</p>

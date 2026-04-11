@@ -1,10 +1,12 @@
-namespace ConvertiX;
+namespace ConvertiX.Services;
 
-public static class CurrencyAPIService
+public class CurrenciesService : ICurrenciesService
 {
-    private static readonly HttpClient _httpClient = new HttpClient();
+    private readonly HttpClient _httpClient;
 
-    public static async Task GetRatesAsync()
+    public CurrenciesService(HttpClient httpClient) => _httpClient = httpClient;
+    
+    public async Task<List<Currency>> GetCurrenciesAsync()
     {
         try
         {
@@ -13,11 +15,11 @@ public static class CurrencyAPIService
             using var jsonDocument = JsonDocument.Parse(response);
             var rates = jsonDocument.RootElement.GetProperty("rates").GetRawText();
             var result = JsonSerializer.Deserialize<Dictionary<string, decimal>> (rates);
-
+            
             if (result is not null)
             {
                 foreach (var res in result)
-                    Currencies._currencies.Add(new Currency(res.Key, res.Value));
+                    Currencies.CurrenciesList.Add(new Currency(res.Key, res.Value));
             }
         }
         catch (Exception ex)
@@ -25,5 +27,7 @@ public static class CurrencyAPIService
             Console.WriteLine($"No response from Frankfurter API or other error: {ex.Message}");
             throw new Exception($"No response from Frankfurter API or other error: {ex.Message}");
         }
+
+        return Currencies.CurrenciesList;
     }
 }
