@@ -1,5 +1,3 @@
-using ConvertiX.Services;
-
 namespace ConvertiX;
 
 public class CurrenciesViewComponent : ViewComponent
@@ -8,12 +6,13 @@ public class CurrenciesViewComponent : ViewComponent
 
     public CurrenciesViewComponent(ICurrenciesService currenciesService) => _currenciesService = currenciesService;
     
-    public async Task<IViewComponentResult> InvokeAsync(string name)
+    public async Task<IViewComponentResult> InvokeAsync(string name, string? selectedValue)
     {
         var currencies = await _currenciesService.GetCurrenciesAsync();
         
         ViewBag.Name = name;
-        var selectList = new SelectList(currencies, "Id", "Name");
+        ViewBag.SelectedValue = selectedValue;
+        var selectList = new SelectList(currencies, "Code", "Name", selectedValue);
 
         return View("Currencies", selectList);
     }

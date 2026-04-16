@@ -1,7 +1,5 @@
 @model SelectList
 
-<cache expires-after="@TimeSpan.FromHours(7)">
-    <select name="@ViewBag.Name" asp-items="Model">
-        <option selected="selected" disabled="disabled">Оберіть валюту</option>
-    </select>
-</cache>
+<select name="@ViewBag.Name" asp-items="Model">
+    <option selected="selected" disabled="disabled">Оберіть валюту</option>
+</select>
