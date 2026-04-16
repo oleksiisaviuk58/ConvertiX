@@ -2,6 +2,7 @@ namespace ConvertiX;
 
 public class ConvertViewModel
 {
+    [DataType(DataType.Currency)]
     [Required(ErrorMessage = "Введіть суму")]
     public decimal Amount { get; set; }
 

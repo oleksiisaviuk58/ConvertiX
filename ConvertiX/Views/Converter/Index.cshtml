@@ -8,7 +8,7 @@
         <h1>Конвертер валют</h1>
         <p>Введіть суму та виберіть напрямок конвертації</p>
         
-        <input asp-for="Amount" class="amount_input" type="text" placeholder="Сума">
+        <input asp-for="Amount" class="amount_input" placeholder="Сума">
         <span asp-validation-for="Amount"></span>
         
         <vc:currencies name="From" selected-value="@Model?.From?.ToString()" />
