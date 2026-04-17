@@ -10,6 +10,9 @@ public class ConverterController : Controller
     {
         if (!ModelState.IsValid)
             return View(model);
+
+        if (model.Amount <= 0)
+            ModelState.AddModelError(nameof(model.Amount), "Некоретне значення");
         
         try
         {
