@@ -9,6 +9,7 @@ services, implementing Dependency Injection, and applying Clean Architecture pri
 - Currency conversion.
 - Retrieval of current exchange rates from an external API.
 - Input data validation.
+- Exchange rate caching.
 - Error handling for invalid requests and external service failures.
 - Displaying conversion results through a web interface.
 
@@ -42,6 +43,5 @@ services, implementing Dependency Injection, and applying Clean Architecture pri
 - Conversion history tracking.
 - Database integration.
 - User authentication and authorization.
-- Exchange rate caching.
 - Support for historical exchange rates.
 - API documentation with Swagger/OpenAPI.
